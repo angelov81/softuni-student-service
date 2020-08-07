@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: softuni-students-backend-service
+  namespace: softuni
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+      name: http
+  selector:
+    app: softuni-students-backend
+  type: NodePort

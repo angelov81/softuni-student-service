@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: softuni-students-backend
+  namespace: softuni
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: softuni-students-backend
+  template:
+    metadata:
+      labels:
+        app: softuni-students-backend
+      annotations:
+        balev.eu/author: "Lachezar Balev"
+    spec:
+      containers:
+        - name: softuni-students-backend
+          image: luchob/student-service:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: server-port
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 25
+            periodSeconds: 30
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 25
+            periodSeconds: 30
+            timeoutSeconds: 3

@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: softuni-students-ingress-backend
+  namespace: softuni
+spec:
+  rules:
+    - host: softuni-students.service.dev.ffp-dev.com
+      http:
+        paths:
+          - backend:
+              serviceName: softuni-students-backend-service
+              servicePort: 80
+            path: /*
